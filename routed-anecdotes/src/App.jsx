@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Route, Routes, useMatch } from "react-router-dom"
 
 import Menu from "./components/Menu"
+import Notification from "./components/Notification"
 import AnecdoteList, { Anecdote } from "./components/AnecdoteList"
 import CreateNewForm from "./components/CreateNewForm"
 import About from "./components/About"
@@ -54,6 +55,8 @@ const App = () => {
     <div>
       <h1>Software anecdotes</h1>
       <Menu />
+
+      <Notification />
 
       <Routes>
         <Route

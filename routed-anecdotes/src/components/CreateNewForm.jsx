@@ -1,11 +1,16 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useNotificationDispatch } from "../NotificationContext"
 
 const CreateNewForm = (props) => {
   const [content, setContent] = useState("")
   const [author, setAuthor] = useState("")
   const [info, setInfo] = useState("")
+  const showNotification = useNotificationDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
+
     e.preventDefault()
     props.addNew({
       content,
@@ -13,6 +18,8 @@ const CreateNewForm = (props) => {
       info,
       votes: 0,
     })
+    navigate("/")
+    showNotification(`a new anecdote ${content} created!`)
   }
 
   return (
