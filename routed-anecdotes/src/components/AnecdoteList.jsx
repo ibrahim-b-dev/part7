@@ -1,22 +1,23 @@
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 export const Anecdote = ({ anecdote }) => {
-  // const id = useParams().id
-  // const anecdote = anecdotes.find((a) => a.id === Number(id))
-
-  console.log(anecdote)
+  const { content, author, votes, info } = anecdote
 
   return (
-    <div>
-      <h1>
-        {anecdote.content} by {anecdote.author}
-      </h1>
-      <p>has {anecdote.votes} votes</p>
+    <article>
+      <header>
+        <h1>
+          {content} by {author}
+        </h1>
+      </header>
+      <p>Votes: {votes}</p>
       <p>
-        for more info see
-        <a href={anecdote.info}>{anecdote.info}</a>
+        More information:{" "}
+        <a href={info} target="_blank" rel="noopener noreferrer">
+          {info}
+        </a>
       </p>
-    </div>
+    </article>
   )
 }
 
@@ -29,13 +30,12 @@ const AnecdoteList = ({ anecdotes }) => {
     <div>
       <h2>Anecdotes</h2>
       <ul>
-        {anecdotes.map((anecdote) => {
-          const id = anecdote.id
+        {anecdotes.map(({ id, content }) => {
           const url = `/anecdotes/${id}`
 
           return (
             <Link key={id} style={padding} to={url}>
-              <li>{anecdote.content}</li>
+              <li>{content}</li>
             </Link>
           )
         })}
