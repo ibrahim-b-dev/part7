@@ -3,9 +3,9 @@ import { useNotificationDispatch } from "../NotificationContext"
 import { useField } from "../hooks"
 
 const CreateNewForm = (props) => {
-  const content = useField("text")
-  const author = useField("text")
-  const info = useField("text")
+  const { reset: contentReset, ...contentProps } = useField("text")
+  const { reset: authorReset, ...authorProps } = useField("text")
+  const { reset: infoReset, ...infoProps } = useField("text")
 
   const showNotification = useNotificationDispatch()
   const navigate = useNavigate()
@@ -13,19 +13,19 @@ const CreateNewForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     props.addNew({
-      content: content.value,
-      author: author.value,
-      info: info.value,
+      content: contentProps.value,
+      author: authorProps.value,
+      info: infoProps.value,
       votes: 0,
     })
     navigate("/")
-    showNotification(`a new anecdote ${content.value} created!`)
+    showNotification(`a new anecdote ${contentProps.value} created!`)
   }
 
   const handleReset = () => {
-    content.reset()
-    author.reset()
-    info.reset()
+    contentReset()
+    authorReset()
+    infoReset()
   }
 
   return (
@@ -34,15 +34,15 @@ const CreateNewForm = (props) => {
       <form onSubmit={handleSubmit}>
         <div>
           content
-          <input {...content} />
+          <input {...contentProps} />
         </div>
         <div>
           author
-          <input {...author} />
+          <input {...authorProps} />
         </div>
         <div>
           url for more info
-          <input {...info} />
+          <input {...infoProps} />
         </div>
         <button type="submit">create</button>
         <button type="button" onClick={handleReset}>
