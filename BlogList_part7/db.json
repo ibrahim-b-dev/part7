@@ -1,0 +1,78 @@
+{
+  "blogs": [
+    {
+      "title": "The CSS Cascade: What It Is, and How It Works",
+      "author": "MDN Web Docs",
+      "url": "https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Cascade_and_inheritance",
+      "id": "1"
+    },
+    {
+      "title": "JavaScript Promises: An Introduction",
+      "author": "Jake Archibald",
+      "url": "https://web.dev/promises/",
+      "id": "2"
+    },
+    {
+      "title": "Understanding React’s useEffect Hook",
+      "author": "Dan Abramov",
+      "url": "https://overreacted.io/a-complete-guide-to-useeffect/",
+      "id": "3"
+    },
+    {
+      "title": "Getting Started with Python in Machine Learning",
+      "author": "Sebastian Raschka",
+      "url": "https://sebastianraschka.com/blog/2021/ml-python-start.html",
+      "id": "4"
+    },
+    {
+      "title": "Exploring Next.js 13: New Features and Improvements",
+      "author": "Vercel Team",
+      "url": "https://nextjs.org/blog/next-13",
+      "id": "5"
+    },
+    {
+      "title": "Building Scalable Applications with Node.js",
+      "author": "NodeSource",
+      "url": "https://nodesource.com/blog/what-is-nodejs-scalable-applications/",
+      "id": "6"
+    },
+    {
+      "title": "What is Serverless Architecture?",
+      "author": "AWS",
+      "url": "https://aws.amazon.com/serverless/",
+      "id": "7"
+    },
+    {
+      "title": "How to Use Git and GitHub - Beginner’s Guide",
+      "author": "freeCodeCamp",
+      "url": "https://www.freecodecamp.org/news/how-to-use-git-and-github/",
+      "id": "8"
+    },
+    {
+      "title": "Introduction to Accessibility in Web Development",
+      "author": "W3C",
+      "url": "https://www.w3.org/WAI/fundamentals/accessibility-intro/",
+      "id": "9"
+    },
+    {
+      "title": "A Practical Guide to GraphQL",
+      "author": "Apollo GraphQL",
+      "url": "https://www.apollographql.com/docs/apollo-server/getting-started/",
+      "id": "10"
+    }
+  ],
+  "users": [
+    {
+      "username": "ahmed",
+      "name": "Ahmed Dev",
+      "password": "1234",
+      "token": "abcd1234efgh5678"
+    },
+    {
+      "username": "ibrahim",
+      "name": "Ibrahim Dev",
+      "password": "1234",
+      "token": "ijkl9012mnop3456"
+    }
+  ]
+}
