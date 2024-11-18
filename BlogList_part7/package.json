@@ -13,6 +13,7 @@
     "server_": "json-server --watch db.json --routes routes.json --port 3001"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.60.5",
     "axios": "^1.4.0",
     "json-server": "^0.17.4",
     "prop-types": "^15.8.1",

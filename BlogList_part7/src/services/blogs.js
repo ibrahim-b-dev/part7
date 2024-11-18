@@ -12,32 +12,33 @@ const get = async (id) => {
   return request.data
 }
 
-const getAll = async () => {
+export const getAll = async () => {
   const request = await axios.get(baseUrl)
   return request.data
 }
 
-const create = async (newBlog) => {
+export const create = async (newBlog) => {
   const config = {
     headers: { Authorization: token },
   }
 
-  const request = await axios.post(baseUrl, newBlog, config)  
+  const request = await axios.post(baseUrl, newBlog, config)
   return request.data
 }
 
-const update = async (updatedBlog) => {
+export const update = async (id) => {
   const config = {
     headers: { Authorization: token },
   }
 
-  const url = `${baseUrl}/${updatedBlog.id}`
+  const url = `${baseUrl}/${id}`
 
-  const request = await axios.put(url, updatedBlog, config)
+  const request = await axios.put(url, id, config)
   return request.data
 }
 
-const remove = async (id) => {
+
+export const remove = async (id) => {
   const config = {
     headers: { Authorization: token },
   }

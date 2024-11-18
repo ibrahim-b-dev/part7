@@ -1,3 +1,5 @@
+import { useQuery } from "@tanstack/react-query"
+
 import Notification from "./components/Notification"
 import Togglable from "./components/Togglable"
 import BlogList from "./components/BlogList"
@@ -6,11 +8,23 @@ import LoginForm from "./forms/LoginForm"
 import State from "./components/State"
 
 import { useUserValue } from "./contexts/UserContext"
-import { useBlogs } from "./hooks"
+import { getAll } from "./services/blogs"
 
 const App = () => {
   const user = useUserValue()
-  const { blogs, createBlog, likeBlog, deleteBlog } = useBlogs()
+
+  const result = useQuery({
+    queryKey: ["blogs"],
+    queryFn: getAll,
+  })
+
+  const blogs = result.data
+    ? [...result.data].sort((a, b) => b.likes - a.likes)
+    : []
+
+  if (result.isLoading) {
+    return <div>loading data...</div>
+  }
 
   return (
     <div>
@@ -24,10 +38,10 @@ const App = () => {
           <State />
 
           <Togglable buttonLabel="new blog">
-            <BlogForm createBlog={createBlog} likeBlog={likeBlog} />
+            <BlogForm />
           </Togglable>
 
-          <BlogList blogs={blogs} likeBlog={likeBlog} deleteBlog={deleteBlog} />
+          <BlogList blogs={blogs} />
         </div>
       )}
     </div>

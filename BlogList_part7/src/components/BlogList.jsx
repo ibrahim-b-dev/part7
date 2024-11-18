@@ -1,9 +1,6 @@
-import { useBlogs } from "../hooks"
 import Blog from "./Blog"
 
 const BlogList = ({ blogs,likeBlog, deleteBlog }) => {
-  // const { blogs, likeBlog, deleteBlog } = useBlogs()
-
   return (
     <div>
       <div>

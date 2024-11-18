@@ -1,15 +1,26 @@
-import { useBlogs, useField } from "../hooks"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useField } from "../hooks"
+import { create } from "../services/blogs"
 
-const BlogForm = ({ createBlog, likeBlog }) => {
-  // const { createBlog, likeBlog } = useBlogs()
+const BlogForm = (props) => {
   const { reset: resetTitle, ...title } = useField("text")
   const { reset: resetAuthor, ...author } = useField("text")
   const { reset: resetUrl, ...url } = useField("text")
 
+  const queryClient = useQueryClient()
+
+  const blogMutation = useMutation({
+    mutationFn: create,
+    onSuccess: (newBlog) => {
+      const blogs = queryClient.getQueryData(["blogs"])
+      queryClient.setQueryData(["blogs"], blogs.concat(newBlog))
+    },
+  })
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    createBlog({
+    blogMutation.mutate({
       title: title.value,
       author: author.value,
       url: url.value,
@@ -22,9 +33,6 @@ const BlogForm = ({ createBlog, likeBlog }) => {
 
   return (
     <div>
-      {/* <button data-testid="likeButton" onClick={() => likeBlog()}>
-        like
-      </button> */}
       <h2>create new</h2>
       <form onSubmit={handleSubmit}>
         <div>

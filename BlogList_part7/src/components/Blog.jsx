@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { useUserValue } from "../contexts/UserContext"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { update, remove } from "../services/blogs"
 
-const Blog = ({ blog, onLike, onDelete }) => {
+const Blog = ({ blog }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -9,6 +11,25 @@ const Blog = ({ blog, onLike, onDelete }) => {
     borderWidth: 1,
     marginBottom: 5,
   }
+
+  const queryClient = useQueryClient()
+  const likeMutaion = useMutation({
+    mutationFn: update,
+    onSuccess: (newBlog) => {
+      const blogs = queryClient.getQueryData(["blogs"])
+      if (blogs) {
+        queryClient.setQueryData(
+          ["blogs"],
+          blogs.map((blog) => (blog.id === newBlog.id ? newBlog : blog))
+        )
+      }
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: remove,
+    onSuccess: () => queryClient.invalidateQueries(["blogs"]),
+  })
 
   const user = useUserValue()
   const [visible, setVisible] = useState(false)
@@ -18,14 +39,12 @@ const Blog = ({ blog, onLike, onDelete }) => {
     setVisible(!visible)
   }
 
-  const handleLike = () => {
-    onLike({
-      ...blog,
-    })
+  const handleLike = (id) => {
+    likeMutaion.mutate(id)
   }
 
   const handleDelete = (id) => {
-    onDelete(id)
+    deleteMutation.mutate(id)
   }
 
   return (
@@ -39,7 +58,7 @@ const Blog = ({ blog, onLike, onDelete }) => {
         <a href="${blog.url}">{blog.url}</a>
         <div>
           <span data-testid="likes">{blog.likes}</span>
-          <button data-testid="likeButton" onClick={handleLike}>
+          <button data-testid="likeButton" onClick={() => handleLike(blog.id)}>
             like
           </button>
         </div>
