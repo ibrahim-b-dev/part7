@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useField } from "../hooks"
-import { create } from "../services/blogs"
+import { create } from "../services/blog"
 
 const BlogForm = (props) => {
   const { reset: resetTitle, ...title } = useField("text")
@@ -33,21 +33,36 @@ const BlogForm = (props) => {
 
   return (
     <div>
-      <h2>create new</h2>
+      <h2 className="text-lg">create new</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          title
-          <input {...title} data-testid="title" name="title" />
+          <input
+            {...title}
+            className="input"
+            placeholder="title..."
+            data-testid="title"
+            name="title"
+          />
         </div>
         <div>
-          author
-          <input {...author} data-testid="author" name="author" />
+          <input
+            {...author}
+            className="input"
+            placeholder="author..."
+            data-testid="author"
+            name="author"
+          />
         </div>
         <div>
-          url
-          <input {...url} data-testid="url" name="url" />
+          <input
+            {...url}
+            className="input"
+            placeholder="url..."
+            data-testid="url"
+            name="url"
+          />
         </div>
-        <button type="submit">create</button>
+        <button className="btn-default" type="submit">create</button>
       </form>
     </div>
   )

@@ -1,49 +1,44 @@
-import { useQuery } from "@tanstack/react-query"
+import { Navigate, Route, Routes } from "react-router-dom"
+
+import Home from "./views/Home"
+import Users from "./views/Users"
+import User from "./views/User"
 
 import Notification from "./components/Notification"
-import Togglable from "./components/Togglable"
-import BlogList from "./components/BlogList"
-import BlogForm from "./forms/BlogForm"
 import LoginForm from "./forms/LoginForm"
-import State from "./components/State"
+import Blog from "./components/Blog"
 
 import { useUserValue } from "./contexts/UserContext"
-import { getAll } from "./services/blogs"
+import Nav from "./components/Nav"
 
 const App = () => {
   const user = useUserValue()
 
-  const result = useQuery({
-    queryKey: ["blogs"],
-    queryFn: getAll,
-  })
-
-  const blogs = result.data
-    ? [...result.data].sort((a, b) => b.likes - a.likes)
-    : []
-
-  if (result.isLoading) {
-    return <div>loading data...</div>
-  }
-
   return (
-    <div>
-      <h2>blogs</h2>
+    <div className="container mx-auto px-4 max-w-screen-xl">
+      <Nav  user={user} />
+      {/* {user && <Nav user={user} />} */}
+
+      <h2 className="text-2xl my-4">Blog App</h2>
       <Notification />
 
-      {!user && <LoginForm />}
+      <Routes>
+        <Route
+          path="/users/:id"
+          element={user ? <User /> : <Navigate replace to="/login" />}
+        />
+        <Route
+          path="/users"
+          element={user ? <Users /> : <Navigate replace to="/login" />}
+        />
+        <Route path="/blogs/:id" element={<Blog />} />
 
-      {user && (
-        <div>
-          <State />
+        {!user && <Route path="/login" element={<LoginForm />} />}
 
-          <Togglable buttonLabel="new blog">
-            <BlogForm />
-          </Togglable>
+        <Route path="/" element={<Home />} />
+      </Routes>
 
-          <BlogList blogs={blogs} />
-        </div>
-      )}
+      <footer className="absolute bottom-0 w-full  p-4 text-center my-4 text-center">Blogs App &copy;</footer>
     </div>
   )
 }

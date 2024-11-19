@@ -1,4 +1,4 @@
-import blogService from "../services/blogs"
+import blogService from "../services/blog"
 
 const userReducer = (state, action) => {
   switch (action.type) {
@@ -10,6 +10,7 @@ const userReducer = (state, action) => {
     case "LOGOUT":
       blogService.setToken(null)
       window.localStorage.removeItem("loggedBlogappUser")
+
       return null
 
     default:

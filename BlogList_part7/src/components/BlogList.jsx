@@ -1,18 +1,24 @@
-import Blog from "./Blog"
+import { Link } from "react-router-dom"
 
-const BlogList = ({ blogs,likeBlog, deleteBlog }) => {
+const BlogList = ({ blogs }) => {
   return (
     <div>
-      <div>
-        {blogs.map((blog) => (
-          <Blog
-            key={blog.id}
-            blog={blog}
-            onLike={likeBlog}
-            onDelete={deleteBlog}
-          />
-        ))}
-      </div>
+      {blogs.map((blog) => {
+        const { id } = blog
+        const url = `/blogs/${id}`
+
+        return (
+          <div
+            key={id}
+            data-testid="parent-div"
+            className="p-2 my-2 border hover:bg-slate-100"
+          >
+            <Link to={url}>
+              <span>{blog.title}</span>
+            </Link>
+          </div>
+        )
+      })}
     </div>
   )
 }

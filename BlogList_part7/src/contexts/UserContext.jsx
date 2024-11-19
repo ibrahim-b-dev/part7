@@ -47,9 +47,9 @@ export const UserContextProvider = (props) => {
   }
 
   const handleLogout = () => {
+    dispatchUser({ type: "LOGOUT" })
     dispatchMessage({ type: "SET", payload: `${user.name} logged out!` })
     setTimeout(() => dispatchMessage({ type: "CLEAR" }), 2000)
-    dispatchUser({ type: "LOGOUT" })
   }
 
   return (
